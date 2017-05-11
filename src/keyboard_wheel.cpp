@@ -7,8 +7,9 @@ using namespace std;
 
 #define _KEY_UP 'A'
 #define _KEY_DOWN 'B'
-#define _KEY_LEFT 'C'
-#define _KEY_RIGHT 'D'
+#define _KEY_RIGHT 'C'
+#define _KEY_LEFT 'D'
+#define _KEY_STOP 'E'//press eny key to stop
 
 ros::Publisher wheel_command_publisher;
 
@@ -28,22 +29,30 @@ void publish_wheel_command(char key)
     switch(key){
         case _KEY_UP:
         
-        msg.linear.x = 10;
-        msg.angular.z= 0; 
+        msg.linear.x = 0.1;
+        msg.angular.z= 0.0; 
         ROS_INFO("KEY_UP\r");
         break;
         case _KEY_DOWN:
-        msg.linear.x = -10;
-        msg.angular.z= 0; 
+        msg.linear.x = -0.1;
+        msg.angular.z= 0.0; 
         ROS_INFO("KEY_DOWN\r");
+        break;
         case _KEY_LEFT:
-        msg.linear.x = 0;
-        msg.angular.z= 3; 
+        msg.linear.x = 0.0;
+        msg.angular.z= 0.5; 
         ROS_INFO("KEY_LEFT\r");
+        break;
         case _KEY_RIGHT:
-        msg.linear.x = 0;
-        msg.angular.z= -3; 
+        msg.linear.x = 0.0;
+        msg.angular.z= -0.5; 
         ROS_INFO("KEY_RIGHT\r");
+        break;
+        case _KEY_STOP:
+        msg.linear.x = 0.0;
+        msg.angular.z= 0.0; 
+        ROS_INFO("KEY_STOP\r");
+        break;
     }
 
     wheel_command_publisher.publish(msg);
